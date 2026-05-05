@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { MetricCard } from "@/components/MetricCard";
 import { useStore } from "@/lib/store";
 import { empresas, prestadores } from "@/lib/mockData";
-import { Building2, Users, Briefcase, CheckCircle2, Wallet, TrendingUp, AlertTriangle } from "lucide-react";
+import { Building2, Users, Briefcase, CheckCircle2, Wallet, TrendingUp, AlertTriangle, Star } from "lucide-react";
 import { StatusBadge } from "@/components/StatusBadge";
 
 export default function Admin() {
@@ -58,7 +58,7 @@ export default function Admin() {
                 <span className="font-medium">{p.nome}</span>
                 <span className="text-muted-foreground">{p.bairro}</span>
                 <span>{p.servicosConcluidos} serviços</span>
-                <span>⭐ {p.avaliacao}</span>
+                <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-warning text-warning" /> {p.avaliacao}</span>
                 <span className={p.disponivel ? "text-success" : "text-muted-foreground"}>{p.disponivel ? "Disponível" : "Indisponível"}</span>
               </div>
             ))}

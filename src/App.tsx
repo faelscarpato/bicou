@@ -21,6 +21,7 @@ import BicosProximos from "./pages/prestador/BicosProximos";
 import BicoDetalhesPrestador from "./pages/prestador/BicoDetalhes";
 import CheckInOut from "./pages/prestador/CheckInOut";
 import Historico from "./pages/prestador/Historico";
+import PerfilPrestador from "./pages/prestador/Perfil";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +50,7 @@ const App = () => (
           <Route path="/prestador/bico/:id" element={<BicoDetalhesPrestador />} />
           <Route path="/prestador/bico/:id/checkin" element={<CheckInOut />} />
           <Route path="/prestador/historico" element={<Historico />} />
+          <Route path="/prestador/perfil" element={<PerfilPrestador />} />
 
           <Route path="/admin" element={<Admin />} />
 

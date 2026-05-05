@@ -6,7 +6,7 @@ import { useStore } from "@/lib/store";
 import { StatusBadge } from "@/components/StatusBadge";
 import { prestadores } from "@/lib/mockData";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Calendar, Clock, MapPin, Phone, User, Wallet, ArrowRight } from "lucide-react";
+import { Calendar, Clock, MapPin, Phone, User, Wallet, ArrowRight, Star, CheckCircle2 } from "lucide-react";
 import { LegalAlert } from "@/components/LegalAlert";
 import { toast } from "sonner";
 
@@ -54,7 +54,9 @@ export default function BicoDetalhes() {
               <Avatar className="h-12 w-12"><AvatarFallback className="bg-primary/10 text-primary font-semibold">{prestador.avatar}</AvatarFallback></Avatar>
               <div className="flex-1">
                 <p className="font-semibold">{prestador.nome}</p>
-                <p className="text-xs text-muted-foreground">{prestador.bairro} · {prestador.distanciaKm} km · ⭐ {prestador.avaliacao}</p>
+                <p className="flex items-center gap-1 text-xs text-muted-foreground">
+                  {prestador.bairro} · {prestador.distanciaKm} km · <Star className="h-3.5 w-3.5 fill-warning text-warning" /> {prestador.avaliacao}
+                </p>
               </div>
             </div>
           </Card>
@@ -78,7 +80,12 @@ export default function BicoDetalhes() {
             {bico.status === "concluido" && (
               <Button asChild><Link to={`/empresa/bico/${bico.id}/pagamento`}>Registrar pagamento simulado <ArrowRight className="h-4 w-4 ml-1" /></Link></Button>
             )}
-            {bico.status === "pago" && <p className="text-sm text-success font-medium">✓ Bico pago demo · {bico.pagoAt}</p>}
+            {bico.status === "pago" && (
+              <p className="flex items-center gap-1.5 text-sm font-medium text-success">
+                <CheckCircle2 className="h-4 w-4" />
+                Bico pago demo · {bico.pagoAt}
+              </p>
+            )}
           </div>
         </Card>
 

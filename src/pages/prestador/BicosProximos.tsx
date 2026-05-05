@@ -1,29 +1,36 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { AppShell } from "@/components/AppShell";
 import { useStore } from "@/lib/store";
 import { BicoCard } from "@/components/BicoCard";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { BicosAdvancedFilters } from "@/components/prestador/BicosAdvancedFilters";
+import { filtrarEOrdenarBicos, getCategoriasDisponiveis } from "@/lib/bicoFilters";
 
 export default function BicosProximos() {
   const bicos = useStore((s) => s.bicos);
-  const [raio, setRaio] = useState(5);
-  const list = bicos.filter((b) => b.distanciaKm <= raio);
+  const filters = useStore((s) => s.prestadorBicosFiltros);
+  const setFilters = useStore((s) => s.setPrestadorBicosFiltros);
+  const resetFilters = useStore((s) => s.resetPrestadorBicosFiltros);
+  const categorias = useMemo(() => getCategoriasDisponiveis(bicos), [bicos]);
+  const list = useMemo(() => filtrarEOrdenarBicos(bicos, filters), [bicos, filters]);
+
   return (
     <AppShell role="prestador">
       <div className="p-4 md:p-8 space-y-4 max-w-5xl mx-auto">
         <div>
           <h1 className="text-2xl md:text-3xl font-bold">Bicos próximos</h1>
-          <p className="text-muted-foreground text-sm">Filtre por raio para encontrar oportunidades</p>
+          <p className="text-muted-foreground text-sm">Filtre por categoria, data, valor/hora e ordene por prioridade.</p>
         </div>
-        <Card className="p-4 shadow-card flex flex-wrap gap-2">
-          <span className="text-sm font-semibold mr-2 self-center">Raio:</span>
-          {[1, 3, 5, 10].map((k) => (
-            <Button key={k} size="sm" variant={raio === k ? "default" : "outline"} onClick={() => setRaio(k)}>{k} km</Button>
-          ))}
-        </Card>
+        <BicosAdvancedFilters
+          bicos={bicos}
+          categorias={categorias}
+          filters={filters}
+          onChange={setFilters}
+          onReset={resetFilters}
+          totalFiltrado={list.length}
+        />
         <div className="grid md:grid-cols-2 gap-3">
           {list.map((b) => <BicoCard key={b.id} bico={b} baseUrl="/prestador/bico" />)}
+          {list.length === 0 && <p className="text-sm text-muted-foreground">Nenhum bico encontrado com estes filtros.</p>}
         </div>
       </div>
     </AppShell>

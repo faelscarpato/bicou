@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useStore } from "@/lib/store";
 import { StatusBadge } from "@/components/StatusBadge";
-import { Calendar, Clock, MapPin, Wallet, CheckCircle2 } from "lucide-react";
+import { PrestadorProgressStepper } from "@/components/PrestadorProgressStepper";
+import { Calendar, Clock, MapPin, Wallet, CheckCircle2, Bookmark } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { PRESTADOR_DEMO_ID } from "@/lib/mockData";
@@ -45,6 +46,12 @@ export default function BicoDetalhesPrestador() {
           <Info icon={MapPin} v={`${bico.bairro} · ${bico.distanciaKm} km`} />
           <Info icon={Wallet} v={`R$ ${bico.valorHora}/h · Total R$ ${total}`} />
         </Card>
+        {!["publicado", "aguardando"].includes(bico.status) && (
+          <Card className="p-5 shadow-card">
+            <h3 className="font-semibold mb-4">Status do bico</h3>
+            <PrestadorProgressStepper bico={bico} />
+          </Card>
+        )}
         {bico.descricao && <Card className="p-5 shadow-card"><h3 className="font-semibold mb-1">Descrição</h3><p className="text-sm text-muted-foreground">{bico.descricao}</p></Card>}
         {bico.requisitos && <Card className="p-5 shadow-card"><h3 className="font-semibold mb-1">Requisitos</h3><p className="text-sm text-muted-foreground">{bico.requisitos}</p></Card>}
         <Card className="p-5 shadow-card text-sm space-y-1">
@@ -56,7 +63,8 @@ export default function BicoDetalhesPrestador() {
         <div className="flex gap-2 sticky bottom-20 md:bottom-0">
           <Button className="flex-1" size="lg" onClick={() => setOpen(true)} disabled={!["publicado", "aguardando"].includes(bico.status)}>Aceitar bico</Button>
           <Button size="lg" variant="outline" onClick={() => { toggleFav(bico.id); toast.success(fav ? "Removido dos favoritos" : "Salvo para ver depois"); }}>
-            {fav ? "★ Salvo" : "☆ Salvar"}
+            <Bookmark className={fav ? "fill-primary text-primary" : ""} />
+            {fav ? "Salvo" : "Salvar"}
           </Button>
         </div>
       </div>

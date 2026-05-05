@@ -3,7 +3,8 @@ import { AppShell } from "@/components/AppShell";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useStore } from "@/lib/store";
-import { Clock, CheckCircle2, MapPin } from "lucide-react";
+import { PrestadorProgressStepper } from "@/components/PrestadorProgressStepper";
+import { Clock, CheckCircle2, MapPin, Hourglass } from "lucide-react";
 import { toast } from "sonner";
 
 export default function CheckInOut() {
@@ -24,6 +25,10 @@ export default function CheckInOut() {
           <h1 className="text-2xl md:text-3xl font-bold mt-1">Check-in / Check-out</h1>
           <p className="text-muted-foreground text-sm">{bico.titulo} · {bico.empresa}</p>
         </div>
+
+        <Card className="p-5 shadow-card">
+          <PrestadorProgressStepper bico={bico} />
+        </Card>
 
         {!bico.checkInAt && (
           <Card className="p-6 shadow-card text-center">
@@ -48,7 +53,7 @@ export default function CheckInOut() {
             <div className="flex items-center gap-2 text-success font-medium"><CheckCircle2 className="h-5 w-5" /> Check-out realizado às {bico.checkOutAt}</div>
             <p className="text-sm">Total trabalhado: <strong>{bico.duracaoHoras}h</strong></p>
             <p className="text-sm">Valor estimado: <strong>R$ {total},00</strong></p>
-            <p className="text-sm text-warning mt-2">⏳ Aguardando confirmação da empresa</p>
+            <p className="text-sm text-warning mt-2 flex items-center gap-1.5"><Hourglass className="h-4 w-4" /> Aguardando confirmação da empresa</p>
           </Card>
         )}
       </div>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { ArrowRight, Calendar, CheckCircle2, Clock, MapPin, Package, ClipboardCheck, Boxes, Sparkles, Users, ShieldCheck, Wallet, History, Star } from "lucide-react";
@@ -38,7 +39,10 @@ export default function Landing() {
             <a href="#seguranca" className="hover:text-foreground">Segurança</a>
             <Link to="/legal" className="hover:text-foreground">Legal</Link>
           </nav>
-          <Button asChild size="sm"><Link to="/simular">Testar demonstração</Link></Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button asChild size="sm"><Link to="/simular">Testar demonstração</Link></Button>
+          </div>
         </div>
       </header>
 

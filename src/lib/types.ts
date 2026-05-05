@@ -62,6 +62,13 @@ export interface Bico {
   avaliacao?: { pontualidade: number; qualidade: number; comunicacao: number; comentario: string };
 }
 
+export interface SaqueDemo {
+  id: string;
+  valor: number;
+  criadoEm: string;
+  status: "simulado";
+}
+
 export const STATUS_LABELS: Record<BicoStatus, string> = {
   publicado: "Publicado",
   aguardando: "Aguardando prestadores",
